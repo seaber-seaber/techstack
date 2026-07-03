@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechStack · 技术社区</title>
+    <!-- 全局基础样式 -->
+    <link rel="stylesheet" href="../public/components/global.css">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- 导航样式 -->
+    <link rel="stylesheet" href="../public/components/header.css">
+    <!-- 弹窗样式 -->
+    <link rel="stylesheet" href="../public/components/auth-modal.css">
+    <!-- user-center页面专属样式 -->
+    <link rel="stylesheet" href="./user-center.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- ========== 用户信息卡片 ========== -->
+    <div class="user-profile">
+        <div class="profile-avatar-wrapper">
+            <img class="profile-avatar" id="profileAvatar" src="" alt="头像" />
+            <div class="avatar-upload-btn" id="avatarUploadBtn" title="更换头像">
+                <i class="fas fa-camera"></i>
+            </div>
+            <input type="file" id="avatarInput" accept="image/*" style="display:none;" />
+        </div>
+        <div class="profile-info">
+            <div class="display-name">
+                <span id="displayName">TechStacker</span>
+                <span class="badge">创作者</span>
+            </div>
+            <div class="profile-meta">
+                <span><i class="fas fa-map-pin"></i> <span id="userLocation">重庆</span></span>
+                <span><i class="far fa-calendar-alt"></i> 加入于 <span id="userJoinDate">2023-05</span></span>
+                <span><i class="fas fa-envelope"></i> <span id="userEmail">tech@stack.com</span></span>
+            </div>
+            <div class="profile-bio" id="userBio">
+                <i class="fas fa-quote-left" style="color:var(--primary);margin-right:6px;"></i>
+                <span id="bioText">热爱技术与分享，专注于全栈开发和云原生架构。</span>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-item"><i class="fas fa-eye"></i> <span class="num">1,203</span> 访问</div>
+                <div class="stat-item"><i class="fas fa-pen-fancy"></i> <span class="num">28</span> 原创</div>
+                <div class="stat-item"><i class="fas fa-user-friends"></i> <span class="num">156</span> 粉丝</div>
+                <div class="stat-item"><i class="fas fa-heart"></i> <span class="num">89</span> 获赞</div>
+            </div>
+        </div>
+        <div class="profile-actions">
+            <button class="btn btn-primary" id="editProfileBtn"><i class="fas fa-edit"></i> 编辑资料</button>
+            <button class="btn btn-outline"><i class="fas fa-cog"></i> 设置</button>
+        </div>
+    </div>
+
+    <!-- ========== Tab 导航 ========== -->
+    <div class="tab-nav" id="tabNav">
+        <div class="tab-item active" data-tab="articles"><i class="fas fa-newspaper"></i> 文章</div>
+        <div class="tab-item" data-tab="favorites"><i class="fas fa-star"></i> 收藏</div>
+        <div class="tab-item" data-tab="interact"><i class="fas fa-comments"></i> 互动</div>
+        <div class="tab-item" data-tab="repos"><i class="fas fa-code-branch"></i> 代码仓库</div>
+        <div class="tab-item" data-tab="dynamics"><i class="fas fa-bolt"></i> 动态</div>
+    </div>
+
+
+    <!-- ========== 筛选栏 ========== -->
+    <div class="filter-bar" id="filterBar">
+        <div class="filter-group">
+            <label for="categoryFilter">分类</label>
+            <select id="categoryFilter">
+                <option value="">全部分类</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="statusFilter">状态</label>
+            <select id="statusFilter">
+                <option value="1">已发布</option>
+                <option value="0">草稿</option>
+                <option value="2">私密</option>
+            </select>
+        </div>
+        <div class="filter-group" style="margin-left:auto;">
+            <span style="font-size:14px;color:#8b949e;" id="totalCount"></span>
+        </div>
+    </div>
+
+    <!-- ========== 内容面板 ========== -->
+    <div class="content-panel" id="contentPanel">
+        <div id="listContainer"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+</div>
+
+<!-- ========== 编辑资料弹窗 ========== -->
+<div class="edit-modal-overlay" id="editModal">
+    <div class="edit-modal">
+        <div class="modal-header">
+            <h2><i class="fas fa-user-edit"></i> 编辑资料</h2>
+            <button class="modal-close" id="editModalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editForm">
+                <!-- 头像上传 -->
+                <div class="edit-avatar-section">
+                    <img class="edit-avatar-preview" id="editAvatarPreview" src="" alt="头像预览" />
+                    <label class="edit-avatar-label" for="editAvatarInput">
+                        <i class="fas fa-camera"></i> 更换头像
+                    </label>
+                    <input type="file" id="editAvatarInput" accept="image/*" style="display:none;" />
+                </div>
+
+                <!-- 昵称 -->
+                <div class="form-group">
+                    <label for="editNickname">昵称</label>
+                    <input type="text" id="editNickname" placeholder="留空则使用用户名" maxlength="20" />
+                    <span class="form-hint">留空将显示为用户名</span>
+                </div>
+
+                <!-- 个人简介 -->
+                <div class="form-group">
+                    <label for="editBio">个人简介</label>
+                    <textarea id="editBio" rows="4" placeholder="写一段介绍自己吧..." maxlength="200"></textarea>
+                    <span class="form-hint"><span class="count" id="bioCount">0</span> / 200</span>
+                </div>
+                
+
+                <!-- 按钮 -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" id="editCancelBtn">取消</button>
+                    <button type="submit" class="btn btn-save">
+                        <i class="fas fa-save"></i> 保存修改
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="./user-center.js"></script>
+
+<!-- 底部加载导航 + 弹窗 -->
+<script>
+    fetch('../public/components/header.html')
+        .then(res => res.text())
+        .then(html => document.body.insertAdjacentHTML('afterbegin', html))
+        .then(() => {
+            const userStr = localStorage.getItem('user_info');
+            const loginBtn = document.getElementById('openLoginBtn');
+            const userWrap = document.getElementById('userWrap');
+            const avatarImg = document.getElementById('headerAvatar');
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                loginBtn.style.display = 'none';
+                userWrap.style.display = 'block';
+                avatarImg.src = user.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=default';
+                userWrap.onclick = () => location.href = "../user-center/user-center.html";
+            }
+        });
+
+    fetch('../public/components/auth-modal.html')
+        .then(res => res.text())
+        .then(html => document.body.insertAdjacentHTML('beforeend', html))
+        .then(() => {
+            const script = document.createElement('script');
+            script.src = '../public/components/auth-modal.js';
+            script.onload = () => {
+                const openBtn = document.getElementById('openLoginBtn');
+                if (openBtn) {
+                    openBtn.addEventListener('click', authOpen);
+                }
+            };
+            document.body.appendChild(script);
+        });
+</script>
+</body>
+</html>

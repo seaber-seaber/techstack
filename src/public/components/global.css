@@ -1,0 +1,57 @@
+/* 全局重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 全局主题变量 */
+:root {
+    --primary: #2b619e;
+    --primary-dark: #1f3a5f;
+    --primary-light: #79c0ff;
+    --secondary: #3888e4;
+    --gradient: linear-gradient(135deg, #58a6ff, #2b619e);
+    --bg-body: #0d1117;
+    --bg-card: #161b22;
+    --bg-toolbar: #0d1117;
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    --text-muted: #3a74bd;
+    --border-color: #30363d;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --navbar-height: 64px;
+}
+
+/* 页面基础样式 */
+body {
+    font-family: var(--font);
+    background: var(--bg-body);
+    color: var(--text-primary);
+}
+html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+
+/* 全局动画（弹窗通用） */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

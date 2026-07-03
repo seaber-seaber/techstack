@@ -1,0 +1,33 @@
+/* ========== 页脚 ========== */
+.footer {
+    border-top: 1px solid var(--border-color);
+    padding: 24px 32px;
+    background: var(--bg-card);
+    margin-top: 20px;
+}
+.footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.footer-content .copyright {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+.footer-content .footer-links {
+    display: flex;
+    gap: 24px;
+}
+.footer-content .footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transition);
+}
+.footer-content .footer-links a:hover {
+    color: var(--primary);
+}

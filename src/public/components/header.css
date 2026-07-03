@@ -1,0 +1,163 @@
+/* ========== 顶部导航 header ========== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(22, 27, 34, 0.92);
+    border-bottom: 1px solid var(--border-color);
+    height: var(--navbar-height);
+}
+
+.header-navbar {
+    height: 100%;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.navbar-brand .brand-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gradient);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+.navbar-brand .brand-highlight {
+    color: var(--primary);
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* 搜索框 */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--bg-toolbar);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    transition: var(--transition);
+}
+.search-box:hover {
+    border-color: var(--primary);
+}
+.search-box i {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 14px;
+    width: 180px;
+}
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* 导航图标按钮 */
+.navbar-actions .nav-btn {
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 18px;
+    text-decoration: none;  /* 新增 */
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    position: relative;
+}
+.navbar-actions .nav-btn:hover {
+    background: var(--bg-toolbar);
+    color: var(--primary);
+}
+.navbar-actions .nav-btn .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    background: #f85149;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(4px, -4px);
+}
+
+/* 登录按钮 */
+.btn-login {
+    padding: 8px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font);
+    font-size: 14px;
+}
+.btn-login:hover {
+    background: var(--bg-toolbar);
+    color: var(--text-primary);
+    border-color: var(--primary);
+}
+
+/*用户头像*/
+.user-avatar-wrap {
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    position: relative;
+    /* 关键：超出部分全部裁剪 */
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    transition: all 0.22s ease;
+}
+.user-avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    /* 强制等比例填满容器，裁切多余区域，保证正圆 */
+    object-fit: cover;
+    /* 取消图片自身圆角，圆角交给父容器控制 */
+    border-radius: 0;
+    transition: all 0.22s ease;
+}
+.user-avatar-wrap:hover {
+    border-color: var(--primary);
+    transform: scale(1.08);
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.15), 0 4px 12px rgba(88, 166, 255, 0.12);
+}

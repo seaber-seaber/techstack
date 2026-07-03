@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechStack · 发布文章</title>
+  <!-- FontAwesome 图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- 第三方库 优先加载 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+  <!-- Monaco Loader 提前全局注入 require/define -->
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/loader.js"></script>
+  <!-- 全局组件样式 -->
+  <link rel="stylesheet" href="../public/components/global.css">
+  <link rel="stylesheet" href="../public/components/header.css">
+  <link rel="stylesheet" href="../public/components/auth-modal.css">
+  <!-- 当前页面样式 -->
+  <link rel="stylesheet" href="./post.css">
+</head>
+<body>
+<!-- 主内容区域 -->
+<div class="app-main">
+  <!-- Markdown工具栏 -->
+  <div class="toolbar">
+    <button class="tool-btn" data-cmd="bold">加粗</button>
+    <button class="tool-btn" data-cmd="italic">斜体</button>
+    <button class="tool-btn" data-cmd="strike">删除线</button>
+    <span class="tool-divider"></span>
+    <button class="tool-btn" data-cmd="h1">H1</button>
+    <button class="tool-btn" data-cmd="h2">H2</button>
+    <button class="tool-btn" data-cmd="h3">H3</button>
+    <span class="tool-divider"></span>
+    <button class="tool-btn" data-cmd="ul">无序列表</button>
+    <button class="tool-btn" data-cmd="ol">有序列表</button>
+    <button class="tool-btn" data-cmd="quote">引用</button>
+    <span class="tool-divider"></span>
+    <button class="tool-btn" data-cmd="inlinecode">行内代码</button>
+    <button class="tool-btn" data-cmd="codeblock">代码块</button>
+    <span class="tool-divider"></span>
+    <button class="tool-btn" data-cmd="link">链接</button>
+    <button class="tool-btn" data-cmd="image">图片</button>
+  </div>
+
+  <!-- 标题输入框 -->
+  <div class="title-input-wrap">
+    <label for="articleTitle">
+    </label><input id="articleTitle" placeholder="请输入文章标题" />
+  </div>
+
+  <!-- 编辑器+预览双栏 -->
+  <div class="editor-split">
+    <div class="editor-left">
+      <div id="monacoContainer"></div>
+    </div>
+    <div class="editor-right">
+      <div id="previewContainer" class="preview-area"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 底部操作栏 -->
+<div class="action-bar">
+  <div class="action-left">
+    <div class="action-stats">
+      <span>字符：<span id="charCount">0</span></span>
+      <span>纯文字：<span id="wordCount">0</span></span>
+      <span>阅读时长：<span id="readTime">1</span>分钟</span>
+    </div>
+    <span id="saveStatus" class="save-status"></span>
+    <div class="category-select-wrap">
+      <label>分类：</label>
+      <label for="categorySelect">
+      </label><select id="categorySelect"></select>
+    </div>
+  </div>
+  <div class="action-right">
+    <button class="btn btn-secondary" id="saveDraftBtn">保存草稿</button>
+    <button class="btn btn-secondary" id="privateBtn">私密发布</button>
+    <button class="btn btn-primary" id="publishingBtn">公开发布</button>
+  </div>
+</div>
+
+<!-- Toast弹窗容器 -->
+<div class="toast-container"></div>
+
+<script type="module" src="./post.js"></script>
+
+<!-- 异步加载导航、登录弹窗 -->
+<script>
+  fetch('../public/components/header.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('afterbegin', html))
+          .then(()=>{
+            const userStr = localStorage.getItem('user_info');
+            const loginBtn = document.getElementById('openLoginBtn');
+            const userWrap = document.getElementById('userWrap');
+            const avatarImg = document.getElementById('headerAvatar');
+            if(userStr){
+              const user = JSON.parse(userStr);
+              loginBtn.style.display = 'none';
+              userWrap.style.display = 'block';
+              avatarImg.src = user.avatar;
+              userWrap.onclick = ()=> location.href = "../user-center/user-center.html";
+            }
+          })
+  fetch('../public/components/auth-modal.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('beforeend', html))
+          .then(() => {
+            const script = document.createElement('script');
+            script.src = '../public/components/auth-modal.js';
+            script.onload = () => {
+              const openBtn = document.getElementById('openLoginBtn');
+              if (openBtn) openBtn.addEventListener('click', authOpen);
+            };
+            document.body.appendChild(script);
+          });
+</script>
+</body>
+</html>

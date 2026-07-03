@@ -1,0 +1,159 @@
+/* ========== 登录注册弹窗 modal ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.modal-overlay.active {
+    display: flex;
+}
+.auth-modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    width: 420px;
+    max-width: 90%;
+    box-shadow: var(--shadow-lg);
+    animation: fadeSlideUp 0.3s ease-out;
+}
+.auth-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+.auth-modal .modal-header .tabs {
+    display: flex;
+    gap: 16px;
+}
+.auth-modal .modal-header .tabs span {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding-bottom: 8px;
+    border-bottom: 2px solid transparent;
+}
+.auth-modal .modal-header .tabs span.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--primary);
+}
+.auth-modal .modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+}
+.auth-modal .modal-close:hover {
+    color: var(--text-primary);
+}
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.auth-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.auth-form .form-group label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+.auth-form .form-group input {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-body);
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition);
+    font-family: var(--font);
+}
+.auth-form .form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+.auth-form .form-row {
+    display: flex;
+    gap: 12px;
+}
+.auth-form .form-row .form-group {
+    flex: 1;
+}
+.auth-form .form-row .form-group .btn-send-code {
+    padding: 10px 16px;
+    background: var(--bg-toolbar);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    font-family: var(--font);
+    font-size: 14px;
+    margin-top: 20px;
+    height: 42px;
+}
+.auth-form .form-row .form-group .btn-send-code:hover {
+    background: var(--border-color);
+    color: var(--text-primary);
+}
+.btn-submit {
+    padding: 12px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--gradient);
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font);
+    margin-top: 8px;
+}
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(88, 166, 255, 0.35);
+}
+.btn-submit-register {
+    background: var(--bg-toolbar);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+.btn-submit-register:hover {
+    background: var(--border-color);
+    color: var(--text-primary);
+    transform: none;
+    box-shadow: none;
+}
+.auth-form .form-footer {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+.auth-form .form-footer a {
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: none;
+}
+.auth-form .form-footer a:hover {
+    text-decoration: underline;
+}

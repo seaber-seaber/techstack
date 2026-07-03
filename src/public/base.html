@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechStack · 技术社区</title>
+  <!-- 全局基础样式（所有页面必引） -->
+  <link rel="stylesheet" href="../public/components/global.css">
+  <!-- 图标库统一引入一次 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- 导航样式 -->
+  <link rel="stylesheet" href="../public/components/header.css">
+  <!-- 弹窗样式 -->
+  <link rel="stylesheet" href="../public/components/auth-modal.css">
+  <!-- 页脚样式 -->
+  <link rel="stylesheet" href="../public/components/footer.css">
+</head>
+<body>
+<!-- 动态加载导航组件 -->
+<script>
+  fetch('./components/header.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('afterbegin', html))
+          .then(() => {
+            // 导航登录按钮绑定弹窗打开
+            const openBtn = document.getElementById('openLoginBtn');
+            openBtn.addEventListener('click', () => authModal.open());
+          })
+</script>
+
+<!-- 页面主体内容 -->
+<main style="padding:20px;margin-top:calc(var(--navbar-height) + 20px);">
+  <h2>首页内容区域</h2>
+  <p>其他页面内容写在这里</p>
+  <!-- 任意位置可加登录按钮：<button onclick="authModal.open()">登录弹窗</button> -->
+</main>
+
+<!-- 底部加载弹窗DOM + JS -->
+<script>
+  // 加载弹窗DOM
+  fetch('./components/auth-modal.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('beforeend', html))
+          .then(() => {
+            // DOM加载完成再执行弹窗脚本
+            const script = document.createElement('script');
+            script.src = './components/auth-modal.js';
+            document.body.appendChild(script);
+          })
+  // 加载页脚
+  fetch('../public/components/footer.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('beforeend', html))
+</script>
+</body>
+</html>

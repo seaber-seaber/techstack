@@ -1,0 +1,29 @@
+<header class="header">
+    <nav class="header-navbar">
+        <a class="navbar-brand" href="/techstack_web/src/index.html">
+            <span class="brand-icon"><i class="fas fa-code"></i></span>
+            <span>Tech<span class="brand-highlight">Stack</span></span>
+        </a>
+        <div class="navbar-actions">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <label>
+                    <input type="text" placeholder="搜索文章、标签...">
+                </label>
+            </div>
+<!--            <button class="nav-btn" title="通知" onclick="location.href='notifications.html'">-->
+<!--                <i class="fas fa-bell"></i>-->
+<!--                <span class="badge">5</span>-->
+<!--            </button>-->
+            <a class="nav-btn" href="/techstack_web/src/post/post.html" title="写文章">
+                <i class="fas fa-pen-fancy"></i>
+            </a>
+            <!-- 未登录 -->
+            <button class="btn-login" id="openLoginBtn">登录</button>
+            <!-- 已登录，默认隐藏 -->
+            <div class="user-avatar-wrap" id="userWrap" style="display:none;">
+                <img id="headerAvatar" src="" alt="头像">
+            </div>
+        </div>
+    </nav>
+</header>

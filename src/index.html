@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechStack · 技术社区</title>
+  <!-- 全局基础样式（所有页面必引） -->
+  <link rel="stylesheet" href="public/components/global.css">
+  <!-- 图标库统一引入一次 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- 导航样式 -->
+  <link rel="stylesheet" href="public/components/header.css">
+  <!-- 弹窗样式 -->
+  <link rel="stylesheet" href="public/components/auth-modal.css">
+  <!-- 页脚样式 -->
+  <link rel="stylesheet" href="public/components/footer.css">
+  <!-- home主页专属样式 -->
+  <link rel="stylesheet" href="home/home.css">
+  <!-- axios CDN 必须引入 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<!-- 页面主体内容 -->
+<main class="main-container">
+
+  <!-- ===== 分类导航 分类接口===== -->
+  <div class="category-nav">
+    <span class="cat-tag active">全部</span>
+<!--    <span class="cat-tag" data-cat-id="1">Python</span>-->
+  </div>
+
+  <!-- ===== 双栏内容 ===== -->
+  <div class="content-grid">
+
+    <!-- 左侧 Feed -->
+    <div class="feed-main">
+      <div class="feed-header">
+        <h2><i class="fas fa-fire" style="color:var(--primary);margin-right:8px;"></i>热门文章</h2>
+      </div>
+      <!--动态生成的文章列表卡片-->
+      <div class="article-grid">
+<!--        <div class="article-card" data-post-id="1">-->
+<!--          <span class="card-tag" data-field="tag">JavaScript</span>-->
+<!--          <h3 data-field="title">深入理解 Event Loop 与异步编程</h3>-->
+<!--          <p data-field="desc">从宏任务、微任务到浏览器渲染，彻底弄懂 JavaScript 的异步执行模型。</p>-->
+<!--          <div class="card-meta">-->
+<!--            <span data-type="view"><i class="far fa-eye"></i> 1.2k</span>-->
+<!--            <span data-type="like"><i class="far fa-heart"></i> 89</span>-->
+<!--            <span data-type="comment"><i class="far fa-comment"></i> 23</span>-->
+<!--            <span data-type="share"><i class="far fa-share-square"></i> 23</span>-->
+<!--            <span data-type="create_at"><i class="far fa-calendar-alt"></i>2020-09-15</span>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+    </div>
+
+    <!-- 右侧边栏 -->
+    <aside class="sidebar-right">
+      <!-- 社区统计 -->
+      <div class="sidebar-card">
+        <div class="card-header">
+          <span><i class="fas fa-chart-simple"></i> 社区数据</span>
+        </div>
+        <div class="card-body">
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="num">2.4k</div>
+              <div class="label">文章</div>
+            </div>
+            <div class="stat-box">
+              <div class="num">8.7k</div>
+              <div class="label">成员</div>
+            </div>
+            <div class="stat-box">
+              <div class="num">156</div>
+              <div class="label">今日活跃</div>
+            </div>
+            <div class="stat-box">
+              <div class="num">32</div>
+              <div class="label">标签</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 热门标签 -->
+      <div class="sidebar-card">
+        <div class="card-header">
+          <span><i class="fas fa-tags"></i> 热门标签</span>
+        </div>
+        <div class="card-body">
+          <div class="tag-cloud">
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</main>
+<script type="module" src="home/home.js"></script>
+<!-- 底部加载弹窗DOM + JS -->
+<script>
+  fetch('./public/components/header.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('afterbegin', html))
+          .then(()=>{
+            const userStr = localStorage.getItem('user_info');
+            const loginBtn = document.getElementById('openLoginBtn');
+            const userWrap = document.getElementById('userWrap');
+            const avatarImg = document.getElementById('headerAvatar');
+            if(userStr){
+              const user = JSON.parse(userStr);
+              loginBtn.style.display = 'none';
+              userWrap.style.display = 'block';
+              avatarImg.src = user.avatar;
+              // 头像点击跳转个人中心
+              userWrap.onclick = ()=> location.href = "user-center/user-center.html";
+            }
+          })
+  fetch('./public/components/auth-modal.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('beforeend', html))
+          .then(() => {
+            const script = document.createElement('script');
+            script.src = '../public/components/auth-modal.js';
+            script.onload = () => {
+              const openBtn = document.getElementById('openLoginBtn');
+              if (openBtn) {
+                openBtn.addEventListener('click', authOpen);
+              }
+            };
+            document.body.appendChild(script);
+          });
+  // 加载页脚
+  fetch('./public/components/footer.html')
+          .then(res => res.text())
+          .then(html => document.body.insertAdjacentHTML('beforeend', html));
+</script>
+</body>
+</html>

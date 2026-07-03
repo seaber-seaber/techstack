@@ -1,0 +1,54 @@
+<div class="modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <div class="modal-header">
+      <div class="tabs">
+        <span class="active" data-tab="login">登录</span>
+        <span data-tab="register">注册</span>
+      </div>
+      <button class="modal-close">&times;</button>
+    </div>
+    <!-- 登录表单 -->
+    <form class="auth-form" id="loginForm">
+      <div class="form-group">
+        <label for="login-username">用户名</label>
+        <input id="login-username" type="text" placeholder="请输入用户名" required />
+      </div>
+      <div class="form-group">
+        <label for="login-password">密码</label>
+        <input id="login-password" type="password" placeholder="请输入密码" required />
+      </div>
+      <button type="submit" class="btn-submit">登 录</button>
+      <div class="form-footer">
+        还没有账号？ <a class="switch-reg">立即注册</a>
+      </div>
+    </form>
+    <!-- 注册表单 -->
+    <form class="auth-form" id="registerForm" style="display:none;">
+      <div class="form-group">
+        <label for="register-username">用户名</label>
+        <input id="register-username" type="text" placeholder="请输入用户名" required />
+      </div>
+      <div class="form-group">
+        <label for="register-password">密码</label>
+        <input id="register-password" type="password" placeholder="请输入密码" required />
+      </div>
+      <div class="form-group">
+        <label for="email">邮箱</label>
+        <input id="email" type="email" placeholder="请输入邮箱" required />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="register-code">验证码</label>
+          <input id="register-code" type="text" placeholder="请输入验证码" required />
+        </div>
+        <div class="form-group" style="flex:0 0 auto;">
+          <button type="button" class="btn-send-code">发送验证码</button>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit btn-submit-register">注 册</button>
+      <div class="form-footer">
+        已有账号？ <a class="switch-login">去登录</a>
+      </div>
+    </form>
+  </div>
+</div>

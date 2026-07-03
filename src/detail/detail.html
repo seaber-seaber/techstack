@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechStack · 技术社区</title>
+    <!-- 全局基础样式（所有页面必引） -->
+    <link rel="stylesheet" href="../public/components/global.css">
+    <!-- 图标库统一引入一次 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- 导航样式 -->
+    <link rel="stylesheet" href="../public/components/header.css">
+    <!-- 弹窗样式 -->
+    <link rel="stylesheet" href="../public/components/auth-modal.css">
+    <!-- detail页面专属样式 -->
+    <link rel="stylesheet" href="./detail.css">
+    <!-- 依赖库 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+</head>
+<body>
+
+<main class="detail-container">
+    <div class="detail-layout">
+        <!-- 左侧目录侧边栏 -->
+        <aside class="toc-sidebar">
+            <div class="toc-title">文章目录</div>
+            <div class="toc-list" id="tocList"></div>
+        </aside>
+
+        <!-- 右侧文章主体 -->
+        <section class="article-main">
+            <div class="article-header">
+                <h1 id="articleTitle"></h1>
+                <div class="article-meta">
+                    <span><i class="fa fa-calendar"></i> 发布时间：<span id="createTime"></span></span>
+                </div>
+            </div>
+            <div class="article-content" id="articleContent"></div>
+        </section>
+    </div>
+</main>
+
+<script src="./detail.js"></script>
+<!-- 底部加载弹窗DOM + JS -->
+<script>
+    fetch('../public/components/header.html')
+        .then(res => res.text())
+        .then(html => document.body.insertAdjacentHTML('afterbegin', html))
+        .then(()=>{
+            const userStr = localStorage.getItem('user_info');
+            const loginBtn = document.getElementById('openLoginBtn');
+            const userWrap = document.getElementById('userWrap');
+            const avatarImg = document.getElementById('headerAvatar');
+            if(userStr){
+                const user = JSON.parse(userStr);
+                loginBtn.style.display = 'none';
+                userWrap.style.display = 'block';
+                avatarImg.src = user.avatar;
+                userWrap.onclick = ()=> location.href = "../user-center/user-center.html";
+            }
+        })
+    fetch('../public/components/auth-modal.html')
+        .then(res => res.text())
+        .then(html => document.body.insertAdjacentHTML('beforeend', html))
+        .then(() => {
+            const script = document.createElement('script');
+            script.src = '../public/components/auth-modal.js';
+            script.onload = () => {
+                const openBtn = document.getElementById('openLoginBtn');
+                if (openBtn) {
+                    openBtn.addEventListener('click', authOpen);
+                }
+            };
+            document.body.appendChild(script);
+        });
+</script>
+</body>
+</html>
